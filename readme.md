@@ -4,7 +4,7 @@ You should have `docker` and `docker-compose`.
 
 ```bash
 cd /home/user/git/AuthService
-docker-compose up -d
+docker-compose build && docker-compose up -d
 ```
 
 # Tables creation 
