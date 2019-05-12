@@ -1,9 +1,8 @@
 from datetime import datetime
-import logging
 
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from __init__ import db
+from main import db
 from models import VisitorInfo
 
 main = Blueprint("main", __name__)

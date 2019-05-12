@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
+
 from models import User
-from __init__ import db
+from main import db
 
 auth = Blueprint("auth", __name__)
 
@@ -48,7 +49,7 @@ def login():
     email = request.form.get("email")
     some_password = request.form.get("password")
     remember = True if request.form.get('remember') else False
-    
+
     user = User.query.filter_by(email=email).first()
     unsuccessfull_login_msg = "Check your authorization details"
     if not user:

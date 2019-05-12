@@ -31,7 +31,7 @@ PRIMARY KEY id
 # Usage examples
 
 ```bash
-curl -X POST localhost:5000/register -d "email=aaa@bbb.ru&password=123123&name=aaa"
-curl -X POST localhost:5000/login -d "email=aaa@bbb.ru&password=123123" -c cookies.txt
-curl -X GET localhost:5000/test?key=some_value -b cookies.txt
+curl -X POST "localhost:80/register" -d "email=aaa@bbb.ru&password=123123&name=aaa"
+curl -X POST "localhost:80/login" -d "email=aaa@bbb.ru&password=123123" -c cookies.txt
+curl -X GET "localhost:80/test?key=some_value" -b cookies.txt
 ```
