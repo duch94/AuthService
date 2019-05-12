@@ -1,22 +1,24 @@
 from datetime import datetime
+import logging
 
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from main import db
 from models import VisitorInfo
 
-main = Blueprint("main", __name__)
+test = Blueprint("main", __name__)
 
 
-@main.route("/test_page")
+@test.route("/test_page")
 @login_required
 def test_method_page():
     return render_template("test.html")
 
 
-@main.route("/test", methods=["GET"])
+@test.route("/test", methods=["GET"])
 @login_required
 def test_method():
+    logging.info("User uid={uid} performing test method request".format(uid=current_user.id))
     visitor_value = str(request.args.get("key"))
     visitor_ip = str(request.environ["REMOTE_ADDR"])
     ctime = datetime.utcnow()
@@ -26,4 +28,7 @@ def test_method():
     db.session.add(new_visitor_info)  # doesnt save to db
     db.session.commit()
 
+    logging.info("User uid={uid} with ip={ip} successfully send value={value}".format(uid=current_user.id,
+                                                                                      ip=visitor_ip,
+                                                                                      value=visitor_value))
     return redirect(url_for("main.test_method_page"))
