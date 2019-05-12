@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="subtitle">
+  Test field
+  <form method="GET" action="/test">
+      <div class="field">
+          <div class="control">
+              <input class="input is-large" type="key" name="key" placeholder="Key" autofocus="">
+          </div>
+      </div>
+      <button class="button is-block is-info is-large is-fullwidth">Send</button>
+  </form>
+</h2>
+{% endblock %}
