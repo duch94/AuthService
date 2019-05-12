@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_sessionstore import Session
+from flask_session_captcha import FlaskSessionCaptcha
+
 import logging
 
 db = SQLAlchemy()
@@ -19,6 +22,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{user}:{pw}@{ip}:{port}
                                                                                                 port=db_port)
 app.secret_key = 'heh heh mm... https://pp.userapi.com/c855016/v855016469/3342d/qQ3oqKkdnjo.jpg'
 db.init_app(app)
+
+app.config["CAPTCHA_ENABLE"] = True
+app.config["CAPTCHA_LENGTH"] = 5
+app.config["SESSION_TYPE"] = "sqlalchemy"
+Session(app)
+captcha = FlaskSessionCaptcha(app)
 
 login_manager = LoginManager()
 login_manager.login_view = "auth.login_page"

@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from models import User
-from main import db
+from main import db, captcha
 
 auth = Blueprint("auth", __name__)
 
@@ -49,6 +49,11 @@ def login():
     email = request.form.get("email")
     some_password = request.form.get("password")
     remember = True if request.form.get('remember') else False
+
+    unsuccessfull_captcha_msg = "Captcha is incorrect"
+    if not captcha.validate():
+        flash(unsuccessfull_captcha_msg)
+        return redirect(url_for("auth.login_page"))
 
     user = User.query.filter_by(email=email).first()
     unsuccessfull_login_msg = "Check your authorization details"
